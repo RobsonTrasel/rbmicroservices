@@ -8,7 +8,9 @@ import com.rbprogramming.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -18,10 +20,13 @@ public class OrderService {
     public void placeOrder(OrderRequest orderRequest) {
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
-        List<OrderLineItems> orderLineItems = orderRequest.getOrderLineItemsDtosList()
-                .stream()
-                .map(this::mapToDto)
-                .toList();
+        List<OrderLineItems> orderLineItems = Optional.ofNullable(orderRequest.getOrderLineItemsDtosList())
+                .map(orderLineItemsDtos -> orderLineItemsDtos.stream()
+                        .map(this::mapToDto)
+                        .toList()
+
+                ).orElse(Collections.emptyList());
+
 
         order.setOrderLineItemsList(orderLineItems);
 
