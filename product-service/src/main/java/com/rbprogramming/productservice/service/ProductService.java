@@ -21,6 +21,6 @@ public class ProductService {
                 .build();
 
         productRepository.save(product);
-        log.info("[PRODUCT] Product is been saved");
+        log.info("[PRODUCT] Product {} is saved", product.getId());
     }
 }
