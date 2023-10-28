@@ -45,7 +45,10 @@ public class OrderService {
                 .bodyToMono(InventoryResponse[].class)
                 .block();
 
-        if (result) {
+        boolean allProductsInStock = Arrays.stream(inventoryResponsesArray)
+                .allMatch(InventoryResponse::isInStock);
+
+        if (allProductsInStock) {
             orderRepository.save(order);
         } else {
             throw new IllegalArgumentException("Product is not in stock, please try again later");
