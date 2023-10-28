@@ -46,7 +46,7 @@ public class OrderService {
                 .bodyToMono(InventoryResponse[].class)
                 .block();
 
-        boolean allProductsInStock = Arrays.stream(inventoryResponsesArray)
+        boolean allProductsInStock = Arrays.stream(inventoryResponsesArray != null ? inventoryResponsesArray : new InventoryResponse[0])
                 .allMatch(InventoryResponse::isInStock);
 
         if (allProductsInStock) {
