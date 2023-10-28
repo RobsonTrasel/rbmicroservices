@@ -37,7 +37,8 @@ public class OrderService {
                 .toList();
 
 
-        Boolean result = webClient.get()
+        InventoryResponse[] inventoryResponsesArray = webClientBuilder.build()
+                .get()
                 .uri("http://localhost:8082/api/inventory",
                         uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
                 .retrieve()
