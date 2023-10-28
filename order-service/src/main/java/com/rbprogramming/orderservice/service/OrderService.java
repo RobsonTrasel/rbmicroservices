@@ -23,6 +23,7 @@ public class OrderService {
     public void placeOrder(OrderRequest orderRequest) {
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
+
         List<OrderLineItems> orderLineItems = Optional.ofNullable(orderRequest.getOrderLineItemsDtosList())
                 .map(orderLineItemsDtos -> orderLineItemsDtos.stream()
                         .map(this::mapToDto)
