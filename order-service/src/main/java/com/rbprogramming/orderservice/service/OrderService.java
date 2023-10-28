@@ -1,5 +1,6 @@
 package com.rbprogramming.orderservice.service;
 
+import com.rbprogramming.orderservice.dto.InventoryResponse;
 import com.rbprogramming.orderservice.dto.OrderLineItemsDto;
 import com.rbprogramming.orderservice.dto.OrderRequest;
 import com.rbprogramming.orderservice.model.Order;
@@ -10,17 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     public void placeOrder(OrderRequest orderRequest) {
         Order order = new Order();
